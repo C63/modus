@@ -4,8 +4,6 @@ spring:
     username: modus
     password: modus
     driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    database: postgresql
-    show-sql: true
+security:
+  basic:
+    enabled: false
