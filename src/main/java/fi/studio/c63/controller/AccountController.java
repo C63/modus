@@ -1,6 +1,7 @@
 package fi.studio.c63.controller;
 
 import fi.studio.c63.domain.Account;
+import fi.studio.c63.exceptions.AccountNotFound;
 import fi.studio.c63.exceptions.InvalidLoginException;
 import fi.studio.c63.repository.AccountRepository;
 import fi.studio.c63.service.AccountService;
@@ -45,5 +46,14 @@ public class AccountController {
     Account login(@RequestBody Account.LoginObject loginObject) {
         return accountService.login(loginObject)
                 .orElseThrow(InvalidLoginException::new);
+    }
+
+    @RequestMapping(value = "/{accountId}", method = RequestMethod.PUT)
+    public
+    @ResponseBody
+    Account update(@PathVariable(name = "accountId") Long accountId,
+                   @RequestBody Account.UpdateObject updateObject) {
+        return accountService.updateAccount(accountId, updateObject.getUsername()).
+                orElseThrow(() -> new AccountNotFound(accountId));
     }
 }

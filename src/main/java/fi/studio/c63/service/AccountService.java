@@ -37,8 +37,8 @@ public class AccountService {
         return account;
     }
 
-    public void updateAccount(String username) {
-        accountRepository.findOneByUsername(username)
+    public Optional<Account> updateAccount(Long accountId, String username) {
+        return accountRepository.findOneById(accountId)
                 .map(account -> {
                     account.setUsername(username);
                     accountRepository.save(account);
