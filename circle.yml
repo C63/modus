@@ -1,0 +1,11 @@
+machine:
+  java:
+    version: oraclejdk8
+  services:
+    - postgresql
+
+database:
+  override:
+    - createuser --login --createdb -P modus
+    - createdb --username=modus modus
+
