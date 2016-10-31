@@ -21,7 +21,7 @@ public class Project {
 
     private Boolean enabled;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "projects")
     private List<Account> accounts;
 
     private Timestamp createdAt;

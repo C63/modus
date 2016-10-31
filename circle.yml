@@ -3,9 +3,12 @@ machine:
     version: oraclejdk8
   services:
     - postgresql
+  environment:
+    PGPASSWORD: modus
+
 
 database:
   override:
-    - createuser --login --createdb -P modus
+    - createuser --login --createdb modus
     - createdb --username=modus modus
 

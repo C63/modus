@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 public class Account implements Serializable {
@@ -36,9 +37,12 @@ public class Account implements Serializable {
     @Column(name = "modified_at")
     private Timestamp modifiedAt;
 
-//    @SuppressWarnings("unused")
-//    private Account() {
-//    }
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "account_project",
+            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "project_id"))
+    private Set<Project> projects;
 
     public String getUsername() {
         return username;
@@ -73,6 +77,15 @@ public class Account implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
 
     public Timestamp getCreatedAt() {
         return createdAt;
